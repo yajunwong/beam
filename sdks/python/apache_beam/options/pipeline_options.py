@@ -37,6 +37,7 @@ __all__ = [
     'DirectOptions',
     'GoogleCloudOptions',
     'HadoopFileSystemOptions',
+    'S3FileSystemOptions',
     'WorkerOptions',
     'DebugOptions',
     'ProfilingOptions',
@@ -550,6 +551,29 @@ class HadoopFileSystemOptions(PipelineOptions):
   def validate(self, validator):
     errors = []
     errors.extend(validator.validate_optional_argument_positive(self, 'port'))
+    return errors
+
+class S3FileSystemOptions(PipelineOptions):
+  """``S3FileSystem`` connection options"""
+
+  @classmethod
+  def _add_argparse_args(cls, parser):
+    parser.add_argument(
+      '--aws_access_key_id',
+      default=None,
+      help=
+      ("Aws access key id.")
+    )
+    parser.add_argument(
+      '--aws_secret_access_key',
+      default=None,
+      help=
+      ("Aws secret access key.")
+    )
+
+  def validate(self, validator):
+    errors = []
+
     return errors
 
 
